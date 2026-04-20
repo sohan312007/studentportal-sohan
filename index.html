@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Info</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #cfe9ff, #e3f2fd);
+    overflow: hidden;
+}
+
+/* CLOCK BACKGROUND */
+.clock {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #64b5f6;
+    border-radius: 50%;
+    animation: fall 10s linear infinite, rotate 4s linear infinite;
+}
+
+/* CLOCK HAND */
+.clock::before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 15px;
+    background: #64b5f6;
+    top: 5px;
+    left: 50%;
+    transform-origin: bottom;
+}
+
+/* MULTIPLE CLOCKS */
+.clock:nth-child(1) { left: 10%; animation-duration: 8s, 3s; }
+.clock:nth-child(2) { left: 30%; animation-duration: 10s, 4s; }
+.clock:nth-child(3) { left: 50%; animation-duration: 9s, 2.5s; }
+.clock:nth-child(4) { left: 70%; animation-duration: 11s, 3.5s; }
+.clock:nth-child(5) { left: 90%; animation-duration: 7s, 2s; }
+
+/* ANIMATIONS */
+@keyframes fall {
+    0% { top: -50px; }
+    100% { top: 110vh; }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* CONTAINER */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 20px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    animation: fadeIn 1.5s;
+}
+
+/* INPUT */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+input:focus {
+    box-shadow: 0 0 10px #64b5f6;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #64b5f6;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #42a5f5;
+}
+
+/* POPUP */
+.popup {
+    position: fixed;
+    bottom: -200px;
+    right: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transition: 0.5s;
+    font-size: 16px;
+}
+
+/* FADE */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- CLOCKS -->
+<div class="clock"></div>
+<div class="clock"></div>
+<div class="clock"></div>
+<div class="clock"></div>
+<div class="clock"></div>
+
+<!-- FORM -->
+<div class="container">
+    <div class="card">
+        <h2>🧑 Personal Info</h2>
+        <input type="text" id="name" placeholder="Enter your name">
+        <input type="email" id="email" placeholder="Enter your email">
+        <input type="text" id="phone" placeholder="Enter your phone">
+        <button onclick="showPopup()">Submit</button>
+    </div>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup"></div>
+
+<script>
+function showPopup() {
+    let name = document.getElementById("name").value;
+    let popup = document.getElementById("popup");
+
+    if(name === "") {
+        popup.innerHTML = "⚠️ Please enter your name!";
+    } else {
+        popup.innerHTML = "🎉 Welcome " + name + "!";
+    }
+
+    popup.style.bottom = "20px";
+
+    setTimeout(() => {
+        popup.style.bottom = "-200px";
+    }, 3000);
+}
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartoon Student Portal</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive;
+    background: linear-gradient(135deg, #ff9a9d83, #fad0c4c2);
+    overflow: hidden;
+    cursor: none;
+}
+
+/* Cartoon floating stickers */
+.sticker {
+    position: absolute;
+    font-size: 40px;
+    animation: float 6s infinite ease-in-out;
+}
+
+.sticker:nth-child(1){ top:10%; left:10%;}
+.sticker:nth-child(2){ top:70%; left:80%;}
+.sticker:nth-child(3){ top:50%; left:5%;}
+.sticker:nth-child(4){ top:20%; right:10%;}
+
+@keyframes float {
+    0%,100% {transform: translateY(0);}
+    50% {transform: translateY(-25px);}
+}
+
+/* Container */
+.container {
+    width: 420px;
+    margin: auto;
+    margin-top: 40px;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: pop 0.6s ease;
+}
+
+@keyframes pop {
+    from {transform: scale(0.8); opacity:0;}
+    to {transform: scale(1); opacity:1;}
+}
+
+h2 {
+    text-align: center;
+}
+
+/* Steps */
+.step { display: none; }
+.step.active { display: block; }
+
+/* Inputs */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Buttons */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #ff6f91;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+/* Progress bar */
+.progress {
+    height: 10px;
+    background: #eee;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #ff6f91;
+    border-radius: 10px;
+    transition: 0.4s;
+}
+
+/* Summary */
+.summary {
+    font-size: 14px;
+}
+
+/* Custom Cursor */
+.cursor {
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.cursor-ring {
+    width: 30px;
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 998;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Stickers -->
+<div class="sticker">🎓</div>
+<div class="sticker">📚</div>
+<div class="sticker">✏️</div>
+<div class="sticker">🧠</div>
+
+<!-- Cursor -->
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+<div class="container">
+
+<div class="progress"><div class="progress-bar" id="bar"></div></div>
+
+<!-- Step 1 -->
+<div class="step active">
+<h2>👤 Personal Info</h2>
+<input id="name" placeholder="Name">
+<input id="email" placeholder="Email">
+<input id="phone" placeholder="Phone">
+</div>
+
+<!-- Step 2 -->
+<div class="step">
+<h2>🎓 Academic Info</h2>
+<input id="college" placeholder="College">
+<select id="course">
+<option value="">Select Course</option>
+<option>CS</option>
+<option>Engineering</option>
+<option>Business</option>
+</select>
+</div>
+
+<!-- Step 3 -->
+<div class="step">
+<h2>🔒 Password</h2>
+<input type="password" id="pass" placeholder="Password">
+<input type="password" id="cpass" placeholder="Confirm Password">
+</div>
+
+<!-- Step 4 -->
+<div class="step">
+<h2>🧠 Math Quiz</h2>
+<p>What is 8 × 3?</p>
+<input id="quiz">
+</div>
+
+<!-- Step 5 -->
+<div class="step">
+<h2>🎉 All Done!</h2>
+<div class="summary" id="summary"></div>
+</div>
+
+<div class="buttons">
+<button onclick="prev()">⬅ Back</button>
+<button onclick="next()">Next ➡</button>
+</div>
+
+</div>
+
+<script>
+let step = 0;
+let steps = document.querySelectorAll(".step");
+
+function showStep() {
+    steps.forEach((s,i)=>s.classList.toggle("active", i===step));
+    document.getElementById("bar").style.width =
+        (step/(steps.length-1))*100 + "%";
+}
+
+function next(){
+    if(step < steps.length-1){
+        step++;
+        if(step===steps.length-1) showSummary();
+        showStep();
+    }
+}
+
+function prev(){
+    if(step>0){ step--; showStep(); }
+}
+
+function showSummary(){
+    document.getElementById("summary").innerHTML = `
+    🎓 Name: ${name.value}<br>
+    📧 Email: ${email.value}<br>
+    📱 Phone: ${phone.value}<br>
+    🏫 College: ${college.value}<br>
+    📘 Course: ${course.value}<br>
+    🧠 Quiz Answer: ${quiz.value}
+    `;
+}
+
+showStep();
+
+/* Cursor animation */
+const cursor = document.querySelector(".cursor");
+const ring = document.querySelector(".cursor-ring");
+
+let mx=0,my=0, rx=0,ry=0;
+
+document.addEventListener("mousemove",(e)=>{
+    mx=e.clientX; my=e.clientY;
+    cursor.style.left=mx+"px";
+    cursor.style.top=my+"px";
+});
+
+function animate(){
+    rx += (mx-rx)*0.15;
+    ry += (my-ry)*0.15;
+    ring.style.left = (rx-15)+"px";
+    ring.style.top = (ry-15)+"px";
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
